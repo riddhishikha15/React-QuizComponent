@@ -1,16 +1,27 @@
 import React,{ Component } from 'react'
+import QuizQuestionButton from './QuizQuestionButton'
 
-class QuizQuestionButton extends Component{
-handleclick(){
-   this.props.clickHandler(this.props.button_text)
+class QuizQuestion extends Component{
+handleClick(buttonText){
+    if(buttonText == this.props.quiz_question.answer)
+        this.props.showNextQuestionHandler()
 }
 render(){
     return(
-        <li>
-            <button onClick= {this.handleclick.bind(this)}>{this.props.button_text}
-            </button>
-        </li>
-    )
+    <main>
+        <section>
+            <p>{this.props.quiz_question.instruction_text}</p>
+        </section>
+        <section className="buttons">
+          <ul>
+              {this.props.quiz_question.answer_options.map((answer_option,index) => {
+                  return <QuizQuestionButton key={index} button_text={answer_option} clickHandler={this.handleClick.bind(this)}/>
+              })}
+          </ul>
+        </section>
+    </main>
+      )
 }
+
 }
-export default QuizQuestionButton
+export default QuizQuestion
